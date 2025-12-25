@@ -23,6 +23,11 @@ public java.util.List<Task> getAll(){
     return taskService.getAll();
 }
 
+@GetMapping("/{id}")
+public Task getTaskById(@PathVariable Long id){
+    return taskService.getTaskById(id);
+}
+
 @DeleteMapping("/{id}")
 public void delete(@PathVariable Long id){
     taskService.deleteTask(id);
