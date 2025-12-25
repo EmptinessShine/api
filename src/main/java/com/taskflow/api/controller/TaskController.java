@@ -23,4 +23,20 @@ public java.util.List<Task> getAll(){
     return taskService.getAll();
 }
 
+@DeleteMapping("/{id}")
+public void delete(@PathVariable Long id){
+    taskService.deleteTask(id);
+}
+@PutMapping("/{id}")
+public Task update(@PathVariable Long id, @Valid @RequestBody TaskRequest request){
+    return taskService.updateTask(id,request);
+}
+
+@PatchMapping("/{id}")
+public Task markAsDone(@PathVariable Long id){
+    return taskService.closeTask(id);
+}
+
+
+
 }
