@@ -10,19 +10,23 @@ import com.taskflow.api.repository.CategoryRepository;
 import com.taskflow.api.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.taskflow.api.mapper.TaskMapper;
 
 @Service
 @RequiredArgsConstructor
 public class TaskService {
     private final TaskRepository taskRepository;
     private final CategoryRepository categoryRepository;
+    private final TaskMapper taskMapper;
 
     public Task createTask(TaskRequest request) {
         Category category = null;
         if (request.getCategoryId() != null) {
             category = categoryRepository.findById(request.getCategoryId()).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
         }
-        return taskRepository.save(Task.builder().title(request.getTitle()).description(request.getDescription()).category(category).build());
+        Task task = taskMapper.toEntity(request);
+        task.setCategory(category);
+        return taskRepository.save(task);
     }
 
     public java.util.List<Task> getAll() {
