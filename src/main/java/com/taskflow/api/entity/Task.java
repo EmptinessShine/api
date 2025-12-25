@@ -34,4 +34,8 @@ public class Task {
         if (status == null) status = TaskStatus.NEW;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
 }
