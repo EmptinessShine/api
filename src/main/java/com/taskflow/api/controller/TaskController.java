@@ -3,7 +3,9 @@ package com.taskflow.api.controller;
 import com.taskflow.api.dto.TaskRequest;
 import com.taskflow.api.dto.TaskResponse;
 import com.taskflow.api.entity.Task;
+import com.taskflow.api.exception.ResourceNotFoundException;
 import com.taskflow.api.mapper.TaskMapper;
+import com.taskflow.api.repository.TaskRepository;
 import com.taskflow.api.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 public class TaskController {
     private final TaskService taskService;
     private final TaskMapper taskMapper;
+    private final TaskRepository taskRepository;
 
     @PostMapping()
     public TaskResponse create(@Valid @RequestBody TaskRequest taskRequest) {
@@ -36,7 +39,11 @@ public class TaskController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
+        if (!taskRepository.existsById(id)){
+            throw new ResourceNotFoundException("Task with id: " + id + " not found");
+        }
         taskService.deleteTask(id);
+
     }
 
     @PutMapping("/{id}")

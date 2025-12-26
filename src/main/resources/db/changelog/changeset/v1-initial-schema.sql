@@ -15,3 +15,5 @@ CREATE TABLE tasks(
     category_id BIGINT,
     constraint fk_tasks_categories FOREIGN KEY (category_id) references categories(id)
 );
+
+
