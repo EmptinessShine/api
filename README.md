@@ -68,7 +68,7 @@ Interactive Swagger UI is available at:
 - [x] CI/CD (GitHub Actions)
 - [x] Security (Basic Auth)
 - [ ] Add Pagination & Filtering
-- [ ] Dockerize the Application layer
+- [x] Dockerize the Application layer
 
 ---
 **Author:** [EmptinessShine](https://github.com/EmptinessShine)
